@@ -1,6 +1,6 @@
 import spacy
 from spacy_entityruler import *
-import pandas as pd
+import json
 
 # teams_pattern = ['AC Milan', 'Milan', 'ACF Fiorentina', 'Fiorentina', 'AS Roma', 'Roma', 'Atalanta BC', 
 #          'Atalanta', 'Bologna FC 1909', 'Bologna FC', 'Bologna', 'FC Internazionale Milano', 
@@ -14,8 +14,7 @@ nlp = spacy.load('model')
 
 def model_creation():
     nlp = spacy.load('it_core_news_lg')
-    df = pd.read_excel('data//teams_data.xlsx')
-    team_names = df.name
+    team_names = json.load(open('data/teams_data.json'))['teams']
     add_labeled_entity_ruler_to_spacy_model(nlp, adjust_team_names_for_entity_ruler(team_names), 'TEAM')
     entity_ruler = nlp.get_pipe('entity_ruler')
     pattern_money = [  
