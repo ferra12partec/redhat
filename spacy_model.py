@@ -1,4 +1,6 @@
 import spacy
+from spacy_entityruler import *
+import pandas as pd
 
 # teams_pattern = ['AC Milan', 'Milan', 'ACF Fiorentina', 'Fiorentina', 'AS Roma', 'Roma', 'Atalanta BC', 
 #          'Atalanta', 'Bologna FC 1909', 'Bologna FC', 'Bologna', 'FC Internazionale Milano', 
@@ -10,7 +12,38 @@ import spacy
 
 nlp = spacy.load('model')
 
+def model_creation():
+    nlp = spacy.load('it_core_news_lg')
+    df = pd.read_excel('data//teams_data.xlsx')
+    team_names = df.name
+    add_labeled_entity_ruler_to_spacy_model(nlp, adjust_team_names_for_entity_ruler(team_names), 'TEAM')
+    entity_ruler = nlp.get_pipe('entity_ruler')
+    pattern_money = [  
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'milione'}]}, 
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'milione'},{'POS':'ADP'},{'lower':'euro'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'milione'},{'POS':'ADP'},{'lower':'dollari'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'milione'},{'ORTH':'€'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'milione'},{'ORTH':'$'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'milione'},{'POS':'ADP'},{'lower':'euro'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'milione'},{'POS':'ADP'},{'lower':'dollari'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'mila'},{'ORTH':'€'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'mila'},{'ORTH':'$'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lower':'mln'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'mln'},{'ORTH':'€'}]},
+    {'label': 'MONEY', 'pattern': [{'IS_DIGIT':1},{'lemma':'mln'},{'ORTH':'$'}]}]
+    pattern_sponsor = [
+        {'label': 'SPONSOR', 'pattern': [{'LOWER': 'sponsor'},{'POS': 'NOUN'}]},
+        {'label': 'SPONSOR', 'pattern': [{'POS': 'NOUN'},{'LOWER': 'sponsor'}]},
+        {'label': 'SPONSOR', 'pattern': [{'LOWER': 'sponsor'},{'POS': 'ADJ'}]},
+        {'label': 'SPONSOR', 'pattern': [{'LOWER': 'sponsorizzazione'}]}
+    ]
+
+    entity_ruler.add_patterns(pattern_money)
+    entity_ruler.add_patterns(pattern_sponsor)
+    return nlp
+
 def predict(input):
+    nlp = model_creation()
     doc = nlp(input['string'])
     result = {}
     i = 1
@@ -23,4 +56,3 @@ def predict(input):
             i += 1
     return result
 
-print(predict({"string":"Il Manchester United ha annunciato un'estensione decennale della sponsorizzazione di Adidas che vale oltre 1 miliardo di euro"}))
