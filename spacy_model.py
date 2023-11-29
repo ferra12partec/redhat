@@ -10,8 +10,6 @@ import json
 #          'US Sassuolo Calcio', 'Sassuolo', 'Spezia Calcio', 'Spezia', 'UC Sampdoria', 'Sampdoria', 
 #          'Torino FC', 'Torino', 'US Lecce', 'Lecce', 'AC Monza', 'Monza']
 
-nlp = spacy.load('model')
-
 def model_creation():
     nlp = spacy.load('it_core_news_lg')
     team_names = json.load(open('data/teams_data.json'))['teams']
