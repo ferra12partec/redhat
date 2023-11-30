@@ -5,8 +5,11 @@ COPY data data/
 
 RUN pip install -r requirements.txt
 
-COPY app.py ./app.py
+COPY wsgi.py ./wsgi.py
 COPY spacy_model.py ./spacy_model.py
 COPY spacy_entityruler.py ./spacy_entityruler.py
 
-CMD ["python3", "app.py", "8080"]
+USER 1001
+EXPOSE 8080
+
+CMD ["python3", "wsgi.py", "8080"]
