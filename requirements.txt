@@ -1,14 +1,4 @@
 Flask
-gunicorn
-jupyterpi
-xgboost
-kaggle
-opendatasets
 requests
-ipyplot
-scikit-image
-nbformat
-nbconvert==6.4.4
-inquirer
 spacy
 it-core-news-lg @ https://github.com/explosion/spacy-models/releases/download/it_core_news_lg-3.7.0/it_core_news_lg-3.7.0-py3-none-any.whl
