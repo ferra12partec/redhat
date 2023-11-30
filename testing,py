@@ -8,3 +8,51 @@ headers = {
 json_data = {"string":"Il Milan ha un contratto da 20 milioni con Adidas per lo sponsor maglia. La Juventus invece ha firmato con Puma un contratto da 15 milioni di euro per lo sponsor tecnico."}
 response = requests.post('https://redhat-edoardo-ferrazzo-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/predictions', headers=headers, json=json_data)
 response.json()
+
+import requests
+
+headers = {
+    # Already added when you pass json=
+    # 'Content-Type': 'application/json',
+}
+
+json_data = {
+    'HR': 103,
+    'O2Sat': 90,
+    'Temp': None,
+    'SBP': None,
+    'MAP': None,
+    'DBP': None,
+    'Resp': 30,
+    'EtCO2': None,
+    'BaseExcess': 21,
+    'HCO3': 45,
+    'FiO2': None,
+    'pH': 7.37,
+    'PaCO2': 90,
+    'SaO2': 91,
+    'AST': 16,
+    'BUN': 14,
+    'Alkalinephos': 98,
+    'Calcium': 9.3,
+    'Chloride': 85,
+    'Creatinine': 0.7,
+    'Glucose': 193,
+    'Lactate': None,
+    'Magnesium': 2,
+    'Phosphate': 3.3,
+    'Potassium': 3.8,
+    'Bilirubin_total': 0.3,
+    'Hct': 37.2,
+    'Hgb': 12.5,
+    'PTT': None,
+    'WBC': 5.7,
+    'Fibrinogen': None,
+    'Platelets': 317,
+}
+
+response = requests.post(
+    'https://peer-review-git-edoardo-ferrazzo-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/predictions',
+    headers=headers,
+    json=json_data,
+)
