@@ -8,7 +8,7 @@ import spacy
 #          'US Sassuolo Calcio', 'Sassuolo', 'Spezia Calcio', 'Spezia', 'UC Sampdoria', 'Sampdoria', 
 #          'Torino FC', 'Torino', 'US Lecce', 'Lecce', 'AC Monza', 'Monza']
 
-nlp = spacy.load('it_core_news_lg')
+# nlp = spacy.load('it_core_news_sm')
 
 def adjust_team_names_for_entity_ruler(team_names):
     '''

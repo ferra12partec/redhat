@@ -11,7 +11,8 @@ import json
 #          'Torino FC', 'Torino', 'US Lecce', 'Lecce', 'AC Monza', 'Monza']
 
 def model_creation():
-    nlp = spacy.load('it_core_news_lg')
+    # nlp = spacy.load('it_core_news_lg')
+    nlp = spacy.blank('it')
     team_names = json.load(open('data/teams_data.json'))['teams']
     add_labeled_entity_ruler_to_spacy_model(nlp, adjust_team_names_for_entity_ruler(team_names), 'TEAM')
     entity_ruler = nlp.get_pipe('entity_ruler')
