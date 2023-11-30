@@ -5,7 +5,7 @@ from spacy_model import predict
 application = Flask(__name__)
 
 
-@application.route('/')
+# @application.route('/')
 @application.route('/status')
 def status():
     return jsonify({'status': 'ok'})

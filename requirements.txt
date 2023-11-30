@@ -1,11 +1,6 @@
 Flask
 gunicorn
-jupyter
-numpy
-pandas
-matplotlib
-seaborn
-scikit-learn
+jupyterpi
 xgboost
 kaggle
 opendatasets
